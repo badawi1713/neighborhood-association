@@ -63,7 +63,7 @@ function Home() {
               color="text.secondary"
               className="mt-12 sm:text-20 text-center tracking-tight text-grey-200"
             >
-              Terima kasih sudah mengunjungi situs dashboard Zonapay
+              Terima kasih sudah mengunjungi situs dashboard RT 7 Geluran, Sidoarjo
             </Typography>
           </motion.div>
           <svg

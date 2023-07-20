@@ -25,7 +25,7 @@ function FooterLayout1(props) {
         }}
       >
         <Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
-          <Typography>&copy; {currentYear}, Zonapay</Typography>
+          <Typography>&copy; {currentYear}, RT 7 Geluran</Typography>
         </Toolbar>
       </AppBar>
     </ThemeProvider>

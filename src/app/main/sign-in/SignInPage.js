@@ -22,7 +22,7 @@ import jwtService from '../../auth/services/jwtService';
 const schema = yup.object().shape({
   email: yup
     .string()
-    .email('Alamat email harus valid, contoh: zonapay@mail.com.')
+    .email('Alamat email harus valid, contoh: user@mail.com')
     .required('Diharuskan untuk mengisi alamat email.'),
   password: yup.string().required('Diharuskan untuk memasukkan password.'),
 });
@@ -72,8 +72,6 @@ function SignInPage() {
     <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-1 min-w-0">
       <Paper className="h-full sm:h-auto md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-16 sm:p-48 md:p-64 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none ltr:border-r-1 rtl:border-l-1">
         <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
-          <img className="w-[240px] mx-auto" src="assets/images/logo/logo-text.svg" alt="logo" />
-
           <Typography className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">
             Masuk
           </Typography>
@@ -107,7 +105,7 @@ function SignInPage() {
                   variant="outlined"
                   required
                   fullWidth
-                  placeholder="zonapay@mail.com"
+                  placeholder="user@mail.com"
                 />
               )}
             />
@@ -168,18 +166,29 @@ function SignInPage() {
       <Box
         className="relative hidden md:flex flex-auto items-center justify-center h-full overflow-hidden "
         sx={{
-          backgroundImage: "url('assets/images/etc/sign-in-cover.png')",
+          // backgroundImage: "url('assets/images/etc/sign-in-cover.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
       >
-        <div className="bg-opacity-30 bg-black h-full w-full absolute" />
+        <div className="w-full h-full absolute top-0 left-0">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15189.128380529874!2d112.68188307573257!3d-7.362891145274552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7e347a02654f7%3A0x2c352fd612095d9a!2sGeluran%2C%20Taman%2C%20Sidoarjo%20Regency%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1689827185756!5m2!1sen!2sid"
+            width="100%"
+            height="100%"
+            allowfullscreen=""
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="geluran-sidoarjo"
+          />
+        </div>
+        <div className="bg-opacity-80 bg-black h-full w-full absolute" />
         <div className="z-10 relative w-full max-w-2xl p-20">
           <div className="text-7xl font-bold leading-none text-gray-50">
-            <div>Dashboard Zonapay,</div>
+            <div>Selamat datang,</div>
           </div>
           <div className="mt-24 text-lg tracking-tight leading-6 text-gray-100">
-            Pakai Zonapay bebas bayar apa saja dan menguntungkan!
+            Dashboard manajemen untuk keperluan perekapan data RT 7 Geluran, Sidoarjo
           </div>
           <div className="flex items-center mt-40">
             <AvatarGroup
@@ -189,14 +198,11 @@ function SignInPage() {
                 },
               }}
             >
-              <Avatar src="assets/images/avatars/female-18.jpg" />
-              <Avatar src="assets/images/avatars/female-11.jpg" />
-              <Avatar src="assets/images/avatars/male-09.jpg" />
-              <Avatar src="assets/images/avatars/male-16.jpg" />
+              <Avatar src="assets/images/logo/logo.svg" />
             </AvatarGroup>
 
             <div className="ml-16 font-medium tracking-tight text-gray-200">
-              Sudah banyak yang menggunakan aplikasi Zonapay, saatnya giliran Kamu!
+              Ben pak RT senang dan dimudahkan untuk merekap data warganya!
             </div>
           </div>
         </div>
