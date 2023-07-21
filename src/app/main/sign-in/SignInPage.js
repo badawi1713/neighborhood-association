@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
 import { Avatar, AvatarGroup, Box } from '@mui/material';
@@ -20,15 +21,12 @@ import jwtService from '../../auth/services/jwtService';
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email('Alamat email harus valid, contoh: user@mail.com')
-    .required('Diharuskan untuk mengisi alamat email.'),
+  no_wa: yup.string().required('Diharuskan untuk mengisi nomor Whatsapp.'),
   password: yup.string().required('Diharuskan untuk memasukkan password.'),
 });
 
 const defaultValues = {
-  email: '',
+  no_wa: '',
   password: '',
   remember: true,
 };
@@ -44,10 +42,10 @@ function SignInPage() {
   const { isValid, dirtyFields, errors } = formState;
   const [loading, setLoading] = useState(false);
 
-  function onSubmit({ email, password }) {
+  function onSubmit({ no_wa, password }) {
     setLoading(true);
     const payload = {
-      email,
+      no_wa,
       password,
     };
     jwtService
@@ -91,21 +89,21 @@ function SignInPage() {
             onSubmit={handleSubmit(onSubmit)}
           >
             <Controller
-              name="email"
+              name="no_wa"
               control={control}
               render={({ field }) => (
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Email"
+                  label="No. Whatsapp"
                   autoFocus
-                  type="email"
-                  error={!!errors.email}
-                  helperText={errors?.email?.message}
+                  type="text"
+                  error={!!errors.no_wa}
+                  helperText={errors?.no_wa?.message}
                   variant="outlined"
                   required
                   fullWidth
-                  placeholder="user@mail.com"
+                  placeholder="Masukkan nomor Whatsapp"
                 />
               )}
             />
@@ -176,7 +174,7 @@ function SignInPage() {
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15189.128380529874!2d112.68188307573257!3d-7.362891145274552!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7e347a02654f7%3A0x2c352fd612095d9a!2sGeluran%2C%20Taman%2C%20Sidoarjo%20Regency%2C%20East%20Java!5e0!3m2!1sen!2sid!4v1689827185756!5m2!1sen!2sid"
             width="100%"
             height="100%"
-            allowfullscreen=""
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="geluran-sidoarjo"
