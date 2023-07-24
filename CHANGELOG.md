@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/badawi1713/neighborhood-association/compare/v1.3.0...v1.4.0) (2023-07-24)
+
+
+### Features
+
+* add arisan meetings page ([0e427f2](https://github.com/badawi1713/neighborhood-association/commit/0e427f2f96b76385d0124af69437d94b47b1b4ff))
+
 ## [1.3.0](https://github.com/badawi1713/neighborhood-association/compare/v1.2.1...v1.3.0) (2023-07-24)
 
 
