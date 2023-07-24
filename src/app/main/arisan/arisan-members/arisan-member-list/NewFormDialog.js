@@ -1,7 +1,9 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   AppBar,
+  Autocomplete,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -10,56 +12,57 @@ import {
   Typography,
 } from '@mui/material';
 import {
-  getMasterMembers,
-  updateMasterMembers,
-} from 'app/store/redux/actions/master-actions/master-member-actions';
+  getArisanMembers,
+  postArisanMembers,
+} from 'app/store/redux/actions/arisan-actions/arisan-member-actions';
 import PropTypes from 'prop-types';
-import { useEffect, useMemo } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  nama: yup
-    .string()
-    .typeError('Diharuskan untuk mengisi nama lengkap')
-    .required('Diharuskan untuk mengisi nama lengkap'),
+  anggota_id: yup
+    .object()
+    .nullable()
+    .typeError('Diharuskan untuk memilih anggota')
+    .required('Diharuskan untuk memilih anggota'),
+  jumlah_lot: yup
+    .number()
+    .min(1, 'Jumlah lot minimum adalah 1')
+    .typeError('Diharuskan untuk mengisi dalam format angka')
+    .required('Diharuskan untuk mengisi jumlah lot'),
 });
 
-function EditFormDialog({ open, closeDialogHandler }) {
+function NewFormDialog({ open, closeDialogHandler }) {
   const dispatch = useDispatch();
-  const { loadingPost, masterMembersDetailData } = useSelector(
-    (state) => state.masterMembersReducer
+  const { loadingPost, arisanMembersList, loadingList } = useSelector(
+    (state) => state.arisanMembersReducer
   );
-
-  console.log(masterMembersDetailData);
 
   const formMethods = useForm({
     mode: 'onChange',
-    defaultValues: useMemo(() => {
-      return masterMembersDetailData;
-    }, [masterMembersDetailData]),
+    defaultValues: {
+      anggota_id: null,
+      jumlah_lot: '',
+      keterangan: '',
+    },
     resolver: yupResolver(schema),
   });
 
-  const { control, formState, handleSubmit, reset } = formMethods;
+  const { control, formState, handleSubmit } = formMethods;
   const { errors } = formState;
-
-  useEffect(() => {
-    reset(masterMembersDetailData);
-  }, [reset, masterMembersDetailData]);
 
   const handleSave = handleSubmit(async (data) => {
     const payload = {
-      id: data?.id,
-      nama: data?.nama,
+      anggota_id: data?.anggota_id?.id,
+      jumlah_lot: data?.jumlah_lot,
       keterangan: data?.keterangan,
     };
 
-    const response = await dispatch(updateMasterMembers(payload, data?.id));
+    const response = await dispatch(postArisanMembers(payload));
     if (response) {
       closeDialogHandler();
-      dispatch(getMasterMembers());
+      dispatch(getArisanMembers());
     }
   });
 
@@ -69,7 +72,7 @@ function EditFormDialog({ open, closeDialogHandler }) {
         <AppBar position="static" elevation={1}>
           <Toolbar sx={{ backgroundColor: 'secondary.main' }} className="flex w-full">
             <Typography variant="h6" color="inherit">
-              Edit Data
+              Data Baru
             </Typography>
           </Toolbar>
         </AppBar>
@@ -77,7 +80,45 @@ function EditFormDialog({ open, closeDialogHandler }) {
           <section className="flex flex-col gap-16">
             <div className="flex flex-col md:flex-row items-center gap-16 md:items-stretch">
               <Controller
-                name="nama"
+                name="anggota_id"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <Autocomplete
+                    fullWidth
+                    id="anggota_id"
+                    value={value}
+                    options={arisanMembersList}
+                    loading={loadingList}
+                    loadingText="Memuat data"
+                    noOptionsText="Data tidak tersedia"
+                    isOptionEqualToValue={(option, newValue) => option.id === newValue.id}
+                    getOptionLabel={(option) => `${option.id} - ${option.name}`}
+                    onChange={(e, newValue) => onChange(newValue)}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors?.anggota_id}
+                        helperText={errors?.anggota_id?.message}
+                        InputProps={{
+                          ...params.InputProps,
+                          endAdornment: (
+                            <>
+                              {loadingList ? <CircularProgress color="inherit" size={20} /> : null}
+                              {params.InputProps.endAdornment}
+                            </>
+                          ),
+                        }}
+                        label=":: Pilih Daftar Anggota"
+                        placeholder="Anggota"
+                      />
+                    )}
+                  />
+                )}
+              />
+            </div>
+            <div className="flex flex-col md:flex-row items-center gap-16 md:items-stretch">
+              <Controller
+                name="jumlah_lot"
                 control={control}
                 render={({ field: { onChange, ...field } }) => (
                   <TextField
@@ -85,14 +126,14 @@ function EditFormDialog({ open, closeDialogHandler }) {
                     onChange={(e) => {
                       onChange(e);
                     }}
-                    autoFocus
-                    error={!!errors.nama}
-                    label="Nama Lengkap"
-                    id="nama_lengkap"
+                    error={!!errors.jumlah_lot}
+                    label="Jumlah Lot"
+                    id="jumlah_lot_lengkap"
                     variant="outlined"
                     fullWidth
-                    helperText={errors?.nama?.message}
-                    placeholder="Nama Lengkap"
+                    helperText={errors?.jumlah_lot?.message}
+                    placeholder="Jumlah Lot"
+                    type="number"
                   />
                 )}
               />
@@ -144,16 +185,16 @@ function EditFormDialog({ open, closeDialogHandler }) {
   );
 }
 
-EditFormDialog.propTypes = {
+NewFormDialog.propTypes = {
   closeDialogHandler: PropTypes.func.isRequired,
   open: PropTypes.bool,
 };
 
-EditFormDialog.defaultProps = {
+NewFormDialog.defaultProps = {
   closeDialogHandler: () => {
     console.log('close dialog');
   },
   openDialog: false,
 };
 
-export default EditFormDialog;
+export default NewFormDialog;

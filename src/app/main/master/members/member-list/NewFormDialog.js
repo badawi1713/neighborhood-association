@@ -21,8 +21,8 @@ import * as yup from 'yup';
 const schema = yup.object().shape({
   nama: yup
     .string()
-    .typeError('Diharuskan untuk mengisi nama lengkap.')
-    .required('Diharuskan untuk mengisi nama lengkap.'),
+    .typeError('Diharuskan untuk mengisi nama lengkap')
+    .required('Diharuskan untuk mengisi nama lengkap'),
 });
 
 function NewFormDialog({ open, closeDialogHandler }) {

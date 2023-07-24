@@ -8,8 +8,10 @@ import SignOutConfig from '../main/sign-out/SignOutConfig';
 import pagesConfigs from '../main/pages/pagesConfigs';
 import homeConfigs from '../main/home/homeConfigs';
 import masterConfigs from '../main/master/masterConfigs';
+import arisanConfigs from '../main/arisan/arisanConfigs';
 
 const routeConfigs = [
+  ...arisanConfigs,
   ...pagesConfigs,
   ...masterConfigs,
   homeConfigs,

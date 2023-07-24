@@ -1,59 +1,59 @@
 import { showMessage } from 'app/store/fuse/messageSlice';
-import { SET_MASTER_MEMBERS_REDUCER } from 'app/store/redux/constants';
+import { SET_ARISAN_MEMBERS_REDUCER } from 'app/store/redux/constants';
 import axios from 'axios';
 
-export const changeMasterMembersReducer = (data) => {
+export const changeArisanMembersReducer = (data) => {
   return async (dispatch) => {
     dispatch({
-      type: SET_MASTER_MEMBERS_REDUCER,
+      type: SET_ARISAN_MEMBERS_REDUCER,
       payload: data,
     });
   };
 };
 
-export const getMasterMembers = () => {
+export const getArisanMembers = () => {
   return async (dispatch, getState) => {
-    const { masterMembersReducer } = getState();
+    const { arisanMembersReducer } = getState();
 
     const {
-      masterMembersNameSearch,
-      masterMembersSortBy,
-      masterMembersSortType,
-      masterMembersPage,
-      masterMembersLimit,
-    } = masterMembersReducer;
+      arisanMembersNameSearch,
+      arisanMembersSortBy,
+      arisanMembersSortType,
+      arisanMembersPage,
+      arisanMembersLimit,
+    } = arisanMembersReducer;
 
     dispatch({
-      type: SET_MASTER_MEMBERS_REDUCER,
+      type: SET_ARISAN_MEMBERS_REDUCER,
       payload: {
         error: null,
         loading: true,
       },
     });
     try {
-      const response = await axios.get(`/v1/api/Anggota`, {
+      const response = await axios.get(`/v1/api/arisan-anggota`, {
         params: {
-          pageNo: masterMembersPage,
-          pageSize: masterMembersLimit,
-          sort: masterMembersSortType,
-          sortBy: masterMembersSortBy,
-          nama: masterMembersNameSearch,
+          pageNo: arisanMembersPage,
+          pageSize: arisanMembersLimit,
+          sort: arisanMembersSortType,
+          sortBy: arisanMembersSortBy,
+          nama: arisanMembersNameSearch,
         },
       });
 
       dispatch({
-        type: SET_MASTER_MEMBERS_REDUCER,
+        type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
           loading: false,
-          masterMembersData: response.data?.data?.content || [],
-          masterMembersTotal: response.data?.data?.totalElements || 0,
+          arisanMembersData: response.data?.data?.content || [],
+          arisanMembersTotal: response.data?.data?.totalElements || 0,
         },
       });
       return true;
     } catch (error) {
       if (error?.response?.status === 500) {
         dispatch({
-          type: SET_MASTER_MEMBERS_REDUCER,
+          type: SET_ARISAN_MEMBERS_REDUCER,
           payload: {
             error: 'Maaf, terjadi kesalahan. Silakan dicoba kembali.',
             loading: false,
@@ -61,7 +61,7 @@ export const getMasterMembers = () => {
         });
       } else {
         dispatch({
-          type: SET_MASTER_MEMBERS_REDUCER,
+          type: SET_ARISAN_MEMBERS_REDUCER,
           payload: {
             error: error.response?.data?.message || error.message,
             loading: false,
@@ -83,16 +83,16 @@ export const getMasterMembers = () => {
   };
 };
 
-export const postMasterMembers = (payload) => {
+export const postArisanMembers = (payload) => {
   return async (dispatch, getState) => {
     dispatch({
-      type: SET_MASTER_MEMBERS_REDUCER,
+      type: SET_ARISAN_MEMBERS_REDUCER,
       payload: {
         loadingPost: true,
       },
     });
     try {
-      await axios.post(`/v1/api/Anggota`, payload);
+      await axios.post(`/v1/api/arisan-anggota`, payload);
 
       dispatch(
         showMessage({
@@ -115,7 +115,7 @@ export const postMasterMembers = (payload) => {
       return false;
     } finally {
       dispatch({
-        type: SET_MASTER_MEMBERS_REDUCER,
+        type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
           loadingPost: false,
         },
@@ -124,16 +124,16 @@ export const postMasterMembers = (payload) => {
   };
 };
 
-export const updateMasterMembers = (payload, id) => {
+export const updateArisanMembers = (payload, id) => {
   return async (dispatch, getState) => {
     dispatch({
-      type: SET_MASTER_MEMBERS_REDUCER,
+      type: SET_ARISAN_MEMBERS_REDUCER,
       payload: {
         loadingPost: true,
       },
     });
     try {
-      await axios.put(`/v1/api/Anggota/${id}`, payload);
+      await axios.put(`/v1/api/arisan-anggota/${id}`, payload);
 
       dispatch(
         showMessage({
@@ -156,7 +156,7 @@ export const updateMasterMembers = (payload, id) => {
       return false;
     } finally {
       dispatch({
-        type: SET_MASTER_MEMBERS_REDUCER,
+        type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
           loadingPost: false,
         },
@@ -165,20 +165,20 @@ export const updateMasterMembers = (payload, id) => {
   };
 };
 
-export const getMasterMembersById = (id) => {
+export const getArisanMembersById = (id) => {
   return async (dispatch, getState) => {
     dispatch(
-      changeMasterMembersReducer({
+      changeArisanMembersReducer({
         loadingDialog: true,
       })
     );
     try {
-      const response = await axios.get(`/v1/api/Anggota/${id}`);
+      const response = await axios.get(`/v1/api/arisan-anggota/${id}`);
 
       dispatch({
-        type: SET_MASTER_MEMBERS_REDUCER,
+        type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
-          masterMembersDetailData: response?.data?.data,
+          arisanMembersDetailData: response?.data?.data,
         },
       });
       return true;
@@ -196,7 +196,7 @@ export const getMasterMembersById = (id) => {
       return false;
     } finally {
       dispatch({
-        type: SET_MASTER_MEMBERS_REDUCER,
+        type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
           loadingDialog: false,
         },
@@ -205,15 +205,15 @@ export const getMasterMembersById = (id) => {
   };
 };
 
-export const deleteMasterMembers = (id) => {
+export const deleteArisanMembers = (id) => {
   return async (dispatch, getState) => {
     dispatch(
-      changeMasterMembersReducer({
+      changeArisanMembersReducer({
         loadingDelete: true,
       })
     );
     try {
-      await axios.delete(`/v1/api/Anggota/${id}`);
+      await axios.delete(`/v1/api/arisan-anggota/${id}`);
 
       dispatch(
         showMessage({
@@ -236,11 +236,61 @@ export const deleteMasterMembers = (id) => {
       return false;
     } finally {
       dispatch({
-        type: SET_MASTER_MEMBERS_REDUCER,
+        type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
           loadingDelete: false,
         },
       });
+    }
+  };
+};
+
+export const getArisanMembersList = () => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: SET_ARISAN_MEMBERS_REDUCER,
+      payload: {
+        loadingList: true,
+      },
+    });
+    try {
+      const response = await axios.get(`/v1/api/Anggota/list`);
+
+      dispatch({
+        type: SET_ARISAN_MEMBERS_REDUCER,
+        payload: {
+          loadingList: false,
+          arisanMembersList: response.data || [],
+        },
+      });
+      return true;
+    } catch (error) {
+      if (error?.response?.status === 500) {
+        dispatch({
+          type: SET_ARISAN_MEMBERS_REDUCER,
+          payload: {
+            loadingList: false,
+          },
+        });
+      } else {
+        dispatch({
+          type: SET_ARISAN_MEMBERS_REDUCER,
+          payload: {
+            loadingList: false,
+          },
+        });
+      }
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
     }
   };
 };

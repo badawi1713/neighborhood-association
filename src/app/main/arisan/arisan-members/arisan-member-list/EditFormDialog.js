@@ -10,9 +10,9 @@ import {
   Typography,
 } from '@mui/material';
 import {
-  getMasterMembers,
-  updateMasterMembers,
-} from 'app/store/redux/actions/master-actions/master-member-actions';
+  getArisanMembers,
+  updateArisanMembers,
+} from 'app/store/redux/actions/arisan-actions/arisan-member-actions';
 import PropTypes from 'prop-types';
 import { useEffect, useMemo } from 'react';
 import { Controller, FormProvider, useForm } from 'react-hook-form';
@@ -22,23 +22,23 @@ import * as yup from 'yup';
 const schema = yup.object().shape({
   nama: yup
     .string()
-    .typeError('Diharuskan untuk mengisi nama lengkap')
-    .required('Diharuskan untuk mengisi nama lengkap'),
+    .typeError('Diharuskan untuk mengisi nama lengkap.')
+    .required('Diharuskan untuk mengisi nama lengkap.'),
 });
 
 function EditFormDialog({ open, closeDialogHandler }) {
   const dispatch = useDispatch();
-  const { loadingPost, masterMembersDetailData } = useSelector(
-    (state) => state.masterMembersReducer
+  const { loadingPost, arisanMembersDetailData } = useSelector(
+    (state) => state.arisanMembersReducer
   );
 
-  console.log(masterMembersDetailData);
+  console.log(arisanMembersDetailData);
 
   const formMethods = useForm({
     mode: 'onChange',
     defaultValues: useMemo(() => {
-      return masterMembersDetailData;
-    }, [masterMembersDetailData]),
+      return arisanMembersDetailData;
+    }, [arisanMembersDetailData]),
     resolver: yupResolver(schema),
   });
 
@@ -46,8 +46,8 @@ function EditFormDialog({ open, closeDialogHandler }) {
   const { errors } = formState;
 
   useEffect(() => {
-    reset(masterMembersDetailData);
-  }, [reset, masterMembersDetailData]);
+    reset(arisanMembersDetailData);
+  }, [reset, arisanMembersDetailData]);
 
   const handleSave = handleSubmit(async (data) => {
     const payload = {
@@ -56,10 +56,10 @@ function EditFormDialog({ open, closeDialogHandler }) {
       keterangan: data?.keterangan,
     };
 
-    const response = await dispatch(updateMasterMembers(payload, data?.id));
+    const response = await dispatch(updateArisanMembers(payload, data?.id));
     if (response) {
       closeDialogHandler();
-      dispatch(getMasterMembers());
+      dispatch(getArisanMembers());
     }
   });
 
