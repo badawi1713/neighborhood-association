@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/badawi1713/neighborhood-association/compare/v1.2.1...v1.3.0) (2023-07-24)
+
+
+### Features
+
+* add arisan members page ([7a6a1c5](https://github.com/badawi1713/neighborhood-association/commit/7a6a1c5ea223774cab47e5b6af951c6ab13cff3e))
+
+
+### Bug Fixes
+
+* change logo size ([273cb8e](https://github.com/badawi1713/neighborhood-association/commit/273cb8e65970972fbbf6b393ffadc9c05da26565))
+
 ### [1.2.1](https://github.com/badawi1713/neighborhood-association/compare/v1.2.0...v1.2.1) (2023-07-24)
 
 
