@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.1](https://github.com/badawi1713/neighborhood-association/compare/v1.2.0...v1.2.1) (2023-07-24)
+
+
+### Bug Fixes
+
+* change loader colors to [#872](https://github.com/badawi1713/neighborhood-association/issues/872)B30 ([e9fae9e](https://github.com/badawi1713/neighborhood-association/commit/e9fae9e3ed143eb383d220d100b0421253d15030)), closes [#872B30](https://github.com/badawi1713/neighborhood-association/issues/872B30)
+
 ## [1.2.0](https://github.com/badawi1713/neighborhood-association/compare/v1.1.0...v1.2.0) (2023-07-24)
 
 
