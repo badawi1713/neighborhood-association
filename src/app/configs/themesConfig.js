@@ -21,15 +21,15 @@ const themesConfig = {
         white: 'rgb(255, 255, 255)',
       },
       primary: {
-        light: '#6DC9FF',
-        main: '#0094DE',
-        dark: '#0062A4',
+        light: '#FFABB0',
+        main: '#C76B70',
+        dark: '#872B30',
         contrastText: darkPaletteText.primary,
       },
       secondary: {
-        light: '#33CCCC',
-        main: '#008080',
-        dark: '#004C4C',
+        light: '#F8878C',
+        main: '#B8474C',
+        dark: '#78070C',
         contrastText: darkPaletteText.primary,
       },
       background: {

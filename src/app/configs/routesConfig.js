@@ -7,13 +7,11 @@ import SignUpConfig from '../main/sign-up/SignUpConfig';
 import SignOutConfig from '../main/sign-out/SignOutConfig';
 import pagesConfigs from '../main/pages/pagesConfigs';
 import homeConfigs from '../main/home/homeConfigs';
-import dashboardConfigs from '../main/dashboard/dashboardConfigs';
-import settingsConfigs from '../main/settings/settingsConfigs';
+import masterConfigs from '../main/master/masterConfigs';
 
 const routeConfigs = [
   ...pagesConfigs,
-  ...dashboardConfigs,
-  ...settingsConfigs,
+  ...masterConfigs,
   homeConfigs,
   SignOutConfig,
   SignInConfig,
