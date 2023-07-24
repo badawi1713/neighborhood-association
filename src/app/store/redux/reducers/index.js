@@ -1,10 +1,10 @@
-import arisanSchedulesReducer from './arisan-reducers/arisan-schedules-reducer';
+import arisanMeetingsReducer from './arisan-reducers/arisan-meetings-reducer';
 import arisanMembersReducer from './arisan-reducers/arisan-members-reducer';
 import masterMembersReducer from './master-reducers/master-members-reducer';
 
 const reducers = {
   arisanMembersReducer,
-  arisanSchedulesReducer,
+  arisanMeetingsReducer,
   masterMembersReducer,
 };
 

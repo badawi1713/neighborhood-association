@@ -45,9 +45,9 @@ const navigationConfig = [
           },
           {
             id: 'dashboard.arisan.schedules',
-            title: 'Jadwal Arisan',
+            title: 'Pertemuan Arisan',
             type: 'item',
-            url: '/arisan/daftar-arisan',
+            url: '/arisan/daftar-pertemuan',
             icon: 'material-outline:edit_calendar',
           },
         ],
