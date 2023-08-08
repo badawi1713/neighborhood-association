@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/badawi1713/neighborhood-association/compare/v1.4.0...v1.5.0) (2023-08-08)
+
+
+### Features
+
+* add arisan transaction page ([5fa8965](https://github.com/badawi1713/neighborhood-association/commit/5fa896540d1aad3ecfe7e8d3076b22e84b438760))
+
 ## [1.4.0](https://github.com/badawi1713/neighborhood-association/compare/v1.3.0...v1.4.0) (2023-07-24)
 
 
