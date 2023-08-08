@@ -52,6 +52,21 @@ const navigationConfig = [
           },
         ],
       },
+      {
+        id: 'dashboard.transaction',
+        title: 'Transaksi',
+        type: 'collapse',
+        icon: 'heroicons-solid:refresh',
+        children: [
+          {
+            id: 'dashboard.transaction.arisan',
+            title: 'Arisan',
+            type: 'item',
+            url: '/transaksi/arisan',
+            icon: 'material-outline:receipt_long',
+          },
+        ],
+      },
     ],
   },
 ];
