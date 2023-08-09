@@ -19,6 +19,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmationDialog from 'app/theme-layouts/shared-components/ConfirmationDialog';
 import { CheckCircle, Close, QuestionMarkOutlined } from '@mui/icons-material';
+import moment from 'moment';
 import ListTableHead from './ListTableHead';
 import EditFormDialog from './EditFormDialog';
 
@@ -136,7 +137,7 @@ function ListTable(props) {
           <TableBody>
             {arisanMeetingsData?.map((item, index) => {
               return (
-                <TableRow className="h-72" hover tabIndex={-1} key={index}>
+                <TableRow className="h-72" hover tabIndex={-1} key={item?.id}>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
                     {index + 1}
                   </TableCell>
@@ -169,6 +170,40 @@ function ListTable(props) {
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
                     <div className="flex justify-center gap-3 items-center">
+                      <Tooltip arrow title="Edit">
+                        <span>
+                          <IconButton
+                            onClick={async () => {
+                              await dispatch(
+                                changeArisanMeetingsReducer({
+                                  arisanMeetingsDetailData: {
+                                    lokasi: item?.lokasi || '',
+                                    tanggal: item?.tanggal
+                                      ? moment(item?.tanggal, 'DD-MM-YYYY').format('YYYY-MM-DD')
+                                      : moment().format('YYYY-MM-DD'),
+                                    pertemuan_ke: item?.pertemuan_ke || '',
+                                    keterangan: item?.keterangan || '',
+                                    dapat1:
+                                      item?.anggota_dapat_1 === '-'
+                                        ? 0
+                                        : item?.anggota_dapat_1 || 0,
+                                    dapat2:
+                                      item?.anggota_dapat_2 === '-'
+                                        ? 0
+                                        : item?.anggota_dapat_2 || 0,
+                                    id: item?.id,
+                                  },
+                                })
+                              );
+                              setOpenEditDialog(true);
+                            }}
+                            disabled={loadingDelete || loadingDialog}
+                            color="default"
+                          >
+                            <FuseSvgIcon size={20}>heroicons-outline:pencil</FuseSvgIcon>
+                          </IconButton>
+                        </span>
+                      </Tooltip>
                       <Tooltip arrow title="Hapus">
                         <span>
                           <IconButton

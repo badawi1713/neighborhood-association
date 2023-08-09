@@ -47,6 +47,20 @@ const rows = [
     sort: false,
   },
   {
+    id: 'pertemuan_lokasi',
+    align: 'left',
+    disablePadding: false,
+    label: 'Lokasi',
+    sort: false,
+  },
+  {
+    id: 'pertemuan_ke',
+    align: 'left',
+    disablePadding: false,
+    label: 'Pertemuan Ke',
+    sort: false,
+  },
+  {
     id: 'tanggal_bayar',
     align: 'center',
     disablePadding: false,

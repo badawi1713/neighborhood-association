@@ -15,15 +15,13 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     jwtService.on('onAutoLogin', () => {
-      dispatch(showMessage({ message: 'Selamat datang kembali' }));
-
       /**
        * Sign in and retrieve user data with stored token
        */
       jwtService
         .signInWithToken()
         .then((user) => {
-          success(user, 'Selamat datang kembali');
+          success(user, '');
         })
         .catch((error) => {
           pass(error.message);

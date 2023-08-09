@@ -133,7 +133,7 @@ export const updateArisanMeetings = (payload, id) => {
       },
     });
     try {
-      await axios.put(`/v1/api/arisan-pertemuan/${id}`, payload);
+      await axios.put(`/v1/api/arisan-pertemuan`, payload);
 
       dispatch(
         showMessage({

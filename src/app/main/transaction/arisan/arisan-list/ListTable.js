@@ -153,6 +153,12 @@ function ListTable(props) {
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
                     {item?.keterangan || '-'}
                   </TableCell>
+                  <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
+                    {item?.pertemuan_lokasi || '-'}
+                  </TableCell>
+                  <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
+                    {item?.pertemuan_ke || '-'}
+                  </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
                     {item?.tanggal_bayar || '-'}
                   </TableCell>

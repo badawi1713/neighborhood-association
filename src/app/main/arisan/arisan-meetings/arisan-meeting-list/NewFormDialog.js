@@ -27,16 +27,14 @@ const schema = yup.object().shape({
     .required('Diharuskan untuk memilih tanggal arisan'),
   pertemuan_ke: yup
     .number()
-    .min(1, 'Jumlah lot minimum adalah 1')
+    .min(1, 'Nilai pertemuan minimal 1')
     .typeError('Diharuskan untuk mengisi dalam format angka')
-    .required('Diharuskan untuk mengisi jumlah lot'),
+    .required('Diharuskan untuk mengisi nilai pertemuan ke berapa?'),
 });
 
 function NewFormDialog({ open, closeDialogHandler }) {
   const dispatch = useDispatch();
-  const { loadingPost, arisanMeetingsList, loadingList } = useSelector(
-    (state) => state.arisanMeetingsReducer
-  );
+  const { loadingPost } = useSelector((state) => state.arisanMeetingsReducer);
 
   const formMethods = useForm({
     mode: 'onChange',
