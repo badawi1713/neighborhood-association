@@ -1,6 +1,7 @@
 import { showMessage } from 'app/store/fuse/messageSlice';
 import { SET_TRANSACTION_ARISAN_REDUCER } from 'app/store/redux/constants';
 import axios from 'axios';
+import { currencyFormat } from 'src/utils/utils';
 
 export const changeTransactionArisanReducer = (data) => {
   return async (dispatch) => {
@@ -239,6 +240,172 @@ export const deleteTransactionArisan = (id) => {
         type: SET_TRANSACTION_ARISAN_REDUCER,
         payload: {
           loadingDelete: false,
+        },
+      });
+    }
+  };
+};
+
+export const getTransactionArisanPaymentList = (keyword) => {
+  return async (dispatch) => {
+    dispatch({
+      type: SET_TRANSACTION_ARISAN_REDUCER,
+      payload: {
+        loadingList: true,
+      },
+    });
+    try {
+      const response = await axios.get(`/v1/api/Anggota/list-search/${keyword}`);
+
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          transactionArisanPaymentList: response?.data?.data || [],
+          loadingList: false,
+        },
+      });
+    } catch (error) {
+      if (error?.response?.status === 500) {
+        dispatch({
+          type: SET_TRANSACTION_ARISAN_REDUCER,
+          payload: {
+            loadingList: false,
+          },
+        });
+        dispatch(
+          showMessage({
+            message: error.response?.data?.message || error.message,
+            variant: 'warning',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+          })
+        );
+      } else {
+        dispatch(
+          showMessage({
+            message: error.response?.data?.message || error.message,
+            variant: 'warning',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+          })
+        );
+      }
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          loadingList: false,
+        },
+      });
+    }
+  };
+};
+
+export const getTransactionArisanPaymentCheckedList = (id) => {
+  return async (dispatch) => {
+    dispatch({
+      type: SET_TRANSACTION_ARISAN_REDUCER,
+      payload: {
+        loadingList: true,
+      },
+    });
+    try {
+      const response = await axios.get(`/v1/api/arisan-transaksi/inquiry/${id}`);
+
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          transactionArisanPaymentCheckedList:
+            response?.data?.data?.list?.length > 0
+              ? response?.data?.data?.list?.map((item) => ({
+                  ...item,
+                  checked: true,
+                  nama: `${item?.nama} - ${item?.pertemuan_ke} (${
+                    item?.periode
+                  }) - Rp${currencyFormat(item?.nominal || 0)}`,
+                }))
+              : [],
+          loadingList: false,
+        },
+      });
+    } catch (error) {
+      if (error?.response?.status === 500) {
+        dispatch({
+          type: SET_TRANSACTION_ARISAN_REDUCER,
+          payload: {
+            loadingList: false,
+          },
+        });
+        dispatch(
+          showMessage({
+            message: error.response?.data?.message || error.message,
+            variant: 'warning',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+          })
+        );
+      } else {
+        dispatch(
+          showMessage({
+            message: error.response?.data?.message || error.message,
+            variant: 'warning',
+            anchorOrigin: {
+              vertical: 'top',
+              horizontal: 'right',
+            },
+          })
+        );
+      }
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          loadingList: false,
+        },
+      });
+    }
+  };
+};
+
+export const handleArisanPayment = (payload) => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSACTION_ARISAN_REDUCER,
+      payload: {
+        loadingPost: true,
+      },
+    });
+    try {
+      await axios.post(`/v1/api/arisan-transaksi/payment`, payload);
+
+      dispatch(
+        showMessage({
+          message: 'Berhasil melakukan pembayaran!',
+          variant: 'success',
+        })
+      );
+      return true;
+    } catch (error) {
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
+    } finally {
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          loadingPost: false,
         },
       });
     }

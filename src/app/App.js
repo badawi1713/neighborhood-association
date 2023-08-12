@@ -10,11 +10,11 @@ import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import { selectCurrentLanguageDirection } from 'app/store/i18nSlice';
 import { selectUser } from 'app/store/userSlice';
 import themeLayouts from 'app/theme-layouts/themeLayouts';
+import axios from 'axios';
 import { SnackbarProvider } from 'notistack';
 import { useSelector } from 'react-redux';
-import rtlPlugin from 'stylis-plugin-rtl';
-import axios from 'axios';
 import { BASE_URL } from 'src/utils/data';
+import rtlPlugin from 'stylis-plugin-rtl';
 import { AuthProvider } from './auth/AuthContext';
 import withAppProviders from './withAppProviders';
 

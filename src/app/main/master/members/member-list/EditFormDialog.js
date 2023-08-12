@@ -32,8 +32,6 @@ function EditFormDialog({ open, closeDialogHandler }) {
     (state) => state.masterMembersReducer
   );
 
-  console.log(masterMembersDetailData);
-
   const formMethods = useForm({
     mode: 'onChange',
     defaultValues: useMemo(() => {

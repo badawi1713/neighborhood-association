@@ -12,14 +12,13 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GroupListFilterDialog from './ListFilterDialog';
 import NewFormDialog from './NewFormDialog';
+import PaymentDialog from './PaymentDialog';
 
 function ListHeader() {
-  const { transactionArisanNameSearch, transactionArisanFilterFormData } = useSelector(
-    (state) => state.transactionArisanReducer
-  );
-  const { filterDate, paymentType } = transactionArisanFilterFormData;
+  const { transactionArisanNameSearch } = useSelector((state) => state.transactionArisanReducer);
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
   const [openFormDialog, setOpenFormDialog] = useState(false);
+  const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -97,16 +96,14 @@ function ListHeader() {
               />
             </form>
           </Paper>
-          {false && (
-            <Button
-              onClick={() => setOpenFilterDialog(true)}
-              variant="contained"
-              color="secondary"
-              startIcon={<FuseSvgIcon>heroicons-outline:filter</FuseSvgIcon>}
-            >
-              {filterDate ? `${filterDate}` : 'Filter'}
-            </Button>
-          )}
+          <Button
+            onClick={() => setOpenPaymentDialog(true)}
+            variant="contained"
+            color="secondary"
+            startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+          >
+            Bayar
+          </Button>
           {false && (
             <Button
               onClick={() => {
@@ -129,6 +126,12 @@ function ListHeader() {
       )}
       {openFormDialog && (
         <NewFormDialog open={openFormDialog} closeDialogHandler={() => setOpenFormDialog(false)} />
+      )}
+      {openPaymentDialog && (
+        <PaymentDialog
+          open={openPaymentDialog}
+          closeDialogHandler={() => setOpenPaymentDialog(false)}
+        />
       )}
     </section>
   );

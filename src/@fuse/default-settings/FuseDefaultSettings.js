@@ -97,7 +97,7 @@ export const defaultThemeOptions = {
     },
     MuiButtonBase: {
       defaultProps: {
-        disableRipple: true,
+        disableRipple: false,
       },
     },
     MuiButton: {
@@ -123,10 +123,10 @@ export const defaultThemeOptions = {
           borderRadius: '28px',
         },
         contained: {
-          boxShadow: 'none',
-          '&:hover, &:focus': {
-            boxShadow: 'none',
-          },
+          // boxShadow: 'none',
+          // '&:hover, &:focus': {
+          //   boxShadow: 'none',
+          // },
         },
       },
     },
