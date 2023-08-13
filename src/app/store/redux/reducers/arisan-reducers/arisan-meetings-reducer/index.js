@@ -10,6 +10,7 @@ const initialState = {
   arisanMeetingsNameSearch: '',
   arisanMeetingsData: [],
   arisanMeetingsList: [],
+  arisanMeetingsMemberList: [],
   arisanMeetingsFilterList: [],
   arisanMeetingsSubGroupList: [],
   arisanMeetingsTypeList: [],

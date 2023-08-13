@@ -15,6 +15,7 @@ import {
   changeArisanMeetingsReducer,
   deleteArisanMeetings,
   getArisanMeetings,
+  getArisanMeetingsMemberList,
 } from 'app/store/redux/actions/arisan-actions/arisan-meeting-actions';
 import { useDispatch, useSelector } from 'react-redux';
 import ConfirmationDialog from 'app/theme-layouts/shared-components/ConfirmationDialog';
@@ -41,16 +42,17 @@ function ListTable(props) {
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
   const [selectedId, setSelectedId] = useState('');
 
-  const getGroupListData = useCallback(() => {
+  const getMettingsListData = useCallback(() => {
     dispatch(getArisanMeetings());
+    dispatch(getArisanMeetingsMemberList());
   }, [dispatch]);
 
   useEffect(() => {
     if (isMounted.current) {
-      getGroupListData();
+      getMettingsListData();
       isMounted.current = false;
     }
-  }, [getGroupListData]);
+  }, [getMettingsListData]);
 
   async function handleChangePage(event, value) {
     await dispatch(
@@ -183,14 +185,8 @@ function ListTable(props) {
                                       : moment().format('YYYY-MM-DD'),
                                     pertemuan_ke: item?.pertemuan_ke || '',
                                     keterangan: item?.keterangan || '',
-                                    dapat1:
-                                      item?.anggota_dapat_1 === '-'
-                                        ? 0
-                                        : item?.anggota_dapat_1 || 0,
-                                    dapat2:
-                                      item?.anggota_dapat_2 === '-'
-                                        ? 0
-                                        : item?.anggota_dapat_2 || 0,
+                                    dapat1: null,
+                                    dapat2: null,
                                     id: item?.id,
                                   },
                                 })

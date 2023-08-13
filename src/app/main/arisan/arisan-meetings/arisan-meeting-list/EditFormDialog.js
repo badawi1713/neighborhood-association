@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import {
   AppBar,
+  Autocomplete,
   Button,
   Dialog,
   DialogActions,
@@ -31,23 +32,16 @@ const schema = yup.object().shape({
     .min(1, 'Nilai pertemuan minimal 1')
     .typeError('Diharuskan untuk mengisi dalam format angka')
     .required('Diharuskan untuk mengisi nilai pertemuan ke berapa?'),
-  dapat1: yup
-    .number()
-    .min(0, 'Jumlah minimum tidak boleh minus')
-    .typeError('Diharuskan untuk mengisi dalam format angka'),
+  dapat1: yup.object().nullable().typeError('Daftar anggota dapat-1 tidak boleh kosong'),
   // .required('Diharuskan untuk mengisi jumlah dapat 1'),
-  dapat2: yup
-    .number()
-    .min(0, 'Jumlah minimum tidak boleh minus')
-    .typeError('Diharuskan untuk mengisi dalam format angka'),
+  dapat2: yup.object().nullable().typeError('Daftar anggota dapat-2 tidak boleh kosong'),
   // .required('Diharuskan untuk mengisi jumlah dapat 2'),
 });
 
 function EditFormDialog({ open, closeDialogHandler }) {
   const dispatch = useDispatch();
-  const { loadingPost, arisanMeetingsDetailData } = useSelector(
-    (state) => state.arisanMeetingsReducer
-  );
+  const { loadingPost, arisanMeetingsDetailData, loadingList, arisanMeetingsMemberList } =
+    useSelector((state) => state.arisanMeetingsReducer);
 
   const formMethods = useForm({
     mode: 'onChange',
@@ -70,8 +64,8 @@ function EditFormDialog({ open, closeDialogHandler }) {
       tanggal: moment(data?.tanggal).format('YYYY-MM-DD') || moment().format('YYYY-MM-DD'),
       pertemuan_ke: data?.pertemuan_ke,
       keterangan: data?.keterangan,
-      dapat1: data?.dapat1,
-      dapat2: data?.dapat2,
+      dapat1: data?.dapat1?.id || '',
+      dapat2: data?.dapat2?.id || '',
       id: data?.id,
     };
 
@@ -167,19 +161,29 @@ function EditFormDialog({ open, closeDialogHandler }) {
                 name="dapat1"
                 control={control}
                 render={({ field: { onChange, ...field } }) => (
-                  <TextField
+                  <Autocomplete
                     {...field}
-                    onChange={(e) => {
-                      onChange(e);
-                    }}
-                    error={!!errors.dapat1}
-                    label="Dapat 1"
-                    id="dapat1"
-                    variant="outlined"
+                    onChange={(e, newValue) => onChange(newValue)}
+                    id="search-user"
                     fullWidth
-                    helperText={errors?.dapat1?.message}
-                    placeholder="Masukkan nilai dapat 1"
-                    type="number"
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    getOptionLabel={(option) => option.name}
+                    options={arisanMeetingsMemberList || []}
+                    loading={loadingList}
+                    loadingText="Memuat data"
+                    noOptionsText="Tidak ada daftar anggota"
+                    value={field?.value || null}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.dapat1}
+                        label="Dapat 1"
+                        id="dapat1"
+                        variant="outlined"
+                        helperText={errors?.dapat1?.message}
+                        placeholder="Pilih anggota untuk dapat 1"
+                      />
+                    )}
                   />
                 )}
               />
@@ -187,19 +191,29 @@ function EditFormDialog({ open, closeDialogHandler }) {
                 name="dapat2"
                 control={control}
                 render={({ field: { onChange, ...field } }) => (
-                  <TextField
+                  <Autocomplete
                     {...field}
-                    onChange={(e) => {
-                      onChange(e);
-                    }}
-                    error={!!errors.dapat2}
-                    label="Dapat 2"
-                    id="dapat2"
-                    variant="outlined"
+                    onChange={(e, newValue) => onChange(newValue)}
+                    id="search-user"
                     fullWidth
-                    helperText={errors?.dapat2?.message}
-                    placeholder="Masukkan nilai dapat 2"
-                    type="number"
+                    isOptionEqualToValue={(option, value) => option.id === value.id}
+                    getOptionLabel={(option) => option.name}
+                    options={arisanMeetingsMemberList || []}
+                    loading={loadingList}
+                    loadingText="Memuat data"
+                    noOptionsText="Tidak ada daftar anggota"
+                    value={field?.value || null}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        error={!!errors.dapat2}
+                        label="Dapat 2"
+                        id="dapat2"
+                        variant="outlined"
+                        helperText={errors?.dapat2?.message}
+                        placeholder="Pilih anggota untuk dapat 2"
+                      />
+                    )}
                   />
                 )}
               />

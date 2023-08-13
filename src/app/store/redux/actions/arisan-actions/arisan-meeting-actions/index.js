@@ -205,6 +205,46 @@ export const getArisanMeetingsById = (id) => {
   };
 };
 
+export const getArisanMeetingsMemberList = () => {
+  return async (dispatch) => {
+    dispatch(
+      changeArisanMeetingsReducer({
+        loadingList: true,
+      })
+    );
+    try {
+      const response = await axios.get(`/v1/api/arisan-anggota/list`);
+
+      dispatch({
+        type: SET_ARISAN_MEETINGS_REDUCER,
+        payload: {
+          arisanMeetingsMemberList: response?.data || [],
+        },
+      });
+      return true;
+    } catch (error) {
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
+    } finally {
+      dispatch({
+        type: SET_ARISAN_MEETINGS_REDUCER,
+        payload: {
+          loadingList: false,
+        },
+      });
+    }
+  };
+};
+
 export const deleteArisanMeetings = (id) => {
   return async (dispatch, getState) => {
     dispatch(
