@@ -67,6 +67,21 @@ const navigationConfig = [
           },
         ],
       },
+      {
+        id: 'dashboard.report',
+        title: 'Laporan',
+        type: 'collapse',
+        icon: 'heroicons-solid:document-text',
+        children: [
+          {
+            id: 'dashboard.report',
+            title: 'Laporan Arisan',
+            type: 'item',
+            url: '/laporan/arisan',
+            icon: 'material-outline:article',
+          },
+        ],
+      },
     ],
   },
 ];
