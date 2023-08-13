@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/badawi1713/neighborhood-association/compare/v1.5.0...v1.5.1) (2023-08-13)
+
+
+### Features
+
+* add payment dialog and pay arisan handler ([7a82125](https://github.com/badawi1713/neighborhood-association/commit/7a8212543aa4c4bebd046fc40689e318dde88fc3))
+* integrate arisan meeting edit and delete services ([7d63bf2](https://github.com/badawi1713/neighborhood-association/commit/7d63bf2475ddb2877bb06090ad29ce9eaa8326cb))
+
+
+### Bug Fixes
+
+* add member list to arisan meeting edit form ([8608c5e](https://github.com/badawi1713/neighborhood-association/commit/8608c5e628fac62bab8909007c6daa1c561850c3))
+
 ## [1.5.0](https://github.com/badawi1713/neighborhood-association/compare/v1.4.0...v1.5.0) (2023-08-08)
 
 
