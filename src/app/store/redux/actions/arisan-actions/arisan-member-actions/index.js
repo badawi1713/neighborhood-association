@@ -124,8 +124,8 @@ export const postArisanMembers = (payload) => {
   };
 };
 
-export const updateArisanMembers = (payload, id) => {
-  return async (dispatch, getState) => {
+export const updateArisanMembers = (payload) => {
+  return async (dispatch) => {
     dispatch({
       type: SET_ARISAN_MEMBERS_REDUCER,
       payload: {
@@ -133,7 +133,7 @@ export const updateArisanMembers = (payload, id) => {
       },
     });
     try {
-      await axios.put(`/v1/api/arisan-anggota/${id}`, payload);
+      await axios.put(`/v1/api/arisan-anggota`, payload);
 
       dispatch(
         showMessage({
@@ -178,7 +178,9 @@ export const getArisanMembersById = (id) => {
       dispatch({
         type: SET_ARISAN_MEMBERS_REDUCER,
         payload: {
-          arisanMembersDetailData: response?.data?.data,
+          arisanMembersDetailData: response?.data?.data
+            ? { ...response?.data?.data, nama: response?.data?.data?.anggota_name || '' }
+            : null,
         },
       });
       return true;

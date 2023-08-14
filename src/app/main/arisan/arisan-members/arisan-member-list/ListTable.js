@@ -167,7 +167,7 @@ function ListTable(props) {
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
                     <div className="flex justify-center gap-3 items-center">
-                      <Tooltip arrow title="API belum tersedia">
+                      <Tooltip arrow title="Edit">
                         <span>
                           <IconButton
                             onClick={async () => {
@@ -176,7 +176,7 @@ function ListTable(props) {
                                 setOpenEditDialog(true);
                               }
                             }}
-                            disabled
+                            disabled={loadingDialog || loadingDelete}
                             color="default"
                           >
                             <FuseSvgIcon size={20}>heroicons-outline:pencil</FuseSvgIcon>

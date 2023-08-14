@@ -22,8 +22,8 @@ import * as yup from 'yup';
 const schema = yup.object().shape({
   nama: yup
     .string()
-    .typeError('Diharuskan untuk mengisi nama lengkap.')
-    .required('Diharuskan untuk mengisi nama lengkap.'),
+    .typeError('Diharuskan untuk mengisi nama anggota.')
+    .required('Diharuskan untuk mengisi nama anggota.'),
 });
 
 function EditFormDialog({ open, closeDialogHandler }) {
@@ -31,8 +31,6 @@ function EditFormDialog({ open, closeDialogHandler }) {
   const { loadingPost, arisanMembersDetailData } = useSelector(
     (state) => state.arisanMembersReducer
   );
-
-  console.log(arisanMembersDetailData);
 
   const formMethods = useForm({
     mode: 'onChange',
@@ -52,11 +50,11 @@ function EditFormDialog({ open, closeDialogHandler }) {
   const handleSave = handleSubmit(async (data) => {
     const payload = {
       id: data?.id,
-      nama: data?.nama,
+      name: data?.nama,
       keterangan: data?.keterangan,
     };
 
-    const response = await dispatch(updateArisanMembers(payload, data?.id));
+    const response = await dispatch(updateArisanMembers(payload));
     if (response) {
       closeDialogHandler();
       dispatch(getArisanMembers());
@@ -87,12 +85,12 @@ function EditFormDialog({ open, closeDialogHandler }) {
                     }}
                     autoFocus
                     error={!!errors.nama}
-                    label="Nama Lengkap"
-                    id="nama_lengkap"
+                    label="Nama Anggota"
+                    id="nama"
                     variant="outlined"
                     fullWidth
                     helperText={errors?.nama?.message}
-                    placeholder="Nama Lengkap"
+                    placeholder="Nama Anggota"
                   />
                 )}
               />
