@@ -7,6 +7,8 @@ const initialState = {
     filterDate: moment().format('YYYY-MM-DD'),
   },
   transactionArisanNameSearch: '',
+  transactionArisanMemberList: [],
+  transactionArisanScheduleList: [],
   transactionArisanData: [],
   transactionArisanPaymentList: [],
   transactionArisanPaymentCheckedList: [],

@@ -185,8 +185,18 @@ function ListTable(props) {
                                       : moment().format('YYYY-MM-DD'),
                                     pertemuan_ke: item?.pertemuan_ke || '',
                                     keterangan: item?.keterangan || '',
-                                    dapat1: null,
-                                    dapat2: null,
+                                    dapat1: item?.anggota_dapat_1_id
+                                      ? {
+                                          id: item?.anggota_dapat_1_id,
+                                          name: item?.anggota_dapat_1,
+                                        }
+                                      : null,
+                                    dapat2: item?.anggota_dapat_2_id
+                                      ? {
+                                          id: item?.anggota_dapat_2_id,
+                                          name: item?.anggota_dapat_2,
+                                        }
+                                      : null,
                                     id: item?.id,
                                   },
                                 })

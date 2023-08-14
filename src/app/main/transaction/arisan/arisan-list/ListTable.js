@@ -14,6 +14,8 @@ import { Button, Chip, IconButton, TableContainer, Tooltip } from '@mui/material
 import {
   changeTransactionArisanReducer,
   deleteTransactionArisan,
+  getArisanTransactionMemberList,
+  getArisanTransactionScheduleList,
   getTransactionArisan,
   getTransactionArisanById,
 } from 'app/store/redux/actions/transaction-actions/transaction-arisan-actions';
@@ -43,6 +45,8 @@ function ListTable(props) {
 
   const getGroupListData = useCallback(() => {
     dispatch(getTransactionArisan());
+    dispatch(getArisanTransactionScheduleList());
+    dispatch(getArisanTransactionMemberList());
   }, [dispatch]);
 
   useEffect(() => {

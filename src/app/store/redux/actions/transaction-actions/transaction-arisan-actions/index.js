@@ -411,3 +411,124 @@ export const handleArisanPayment = (payload) => {
     }
   };
 };
+
+export const getArisanTransactionMemberList = () => {
+  return async (dispatch) => {
+    dispatch(
+      changeTransactionArisanReducer({
+        loadingList: true,
+      })
+    );
+    try {
+      const response = await axios.get(`/v1/api/Anggota/list`);
+
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          transactionArisanMemberList: response?.data || [],
+        },
+      });
+      return true;
+    } catch (error) {
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
+    } finally {
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          loadingList: false,
+        },
+      });
+    }
+  };
+};
+
+export const getArisanTransactionScheduleList = () => {
+  return async (dispatch) => {
+    dispatch(
+      changeTransactionArisanReducer({
+        loadingList: true,
+      })
+    );
+    try {
+      const response = await axios.get(`/v1/api/arisan-pertemuan/list`);
+
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          transactionArisanScheduleList: response?.data || [],
+        },
+      });
+      return true;
+    } catch (error) {
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
+    } finally {
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          loadingList: false,
+        },
+      });
+    }
+  };
+};
+
+export const handleArisanManualPayment = (payload) => {
+  return async (dispatch, getState) => {
+    dispatch({
+      type: SET_TRANSACTION_ARISAN_REDUCER,
+      payload: {
+        loadingPost: true,
+      },
+    });
+    try {
+      await axios.post(`/v1/api/arisan-transaksi`, payload);
+
+      dispatch(
+        showMessage({
+          message: 'Berhasil memproses tagihan manual!',
+          variant: 'success',
+        })
+      );
+      return true;
+    } catch (error) {
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
+    } finally {
+      dispatch({
+        type: SET_TRANSACTION_ARISAN_REDUCER,
+        payload: {
+          loadingPost: false,
+        },
+      });
+    }
+  };
+};

@@ -41,13 +41,9 @@ function PaymentDialog({ open, closeDialogHandler }) {
   } = useSelector((state) => state.transactionArisanReducer);
 
   const searchRef = useRef(null);
-  const checkboxRef = useRef(null);
   const checkboxListRef = useRef(null);
-  const checkboxes = useRef([]);
-  const [resetForm, setResetForm] = useState(false);
   const [openConfirmation, setOpenConfirmation] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
-  const [focusedIndex, setFocusedIndex] = useState(null);
 
   const handleCloseDialog = (event) => {
     if (event.key === 'Escape') {
@@ -108,7 +104,7 @@ function PaymentDialog({ open, closeDialogHandler }) {
     // resolver: yupResolver(schema),
   });
 
-  const { control, formState, handleSubmit, reset } = formMethods;
+  const { control, formState, handleSubmit } = formMethods;
   const { errors } = formState;
 
   const selectedData = useMemo(() => {
@@ -263,7 +259,7 @@ function PaymentDialog({ open, closeDialogHandler }) {
               />
             </div>
             <Divider />
-            {transactionArisanPaymentCheckedList?.length > 0 && (
+            {transactionArisanPaymentCheckedList?.length > 0 ? (
               <div>
                 <FormControlLabel
                   label="Pilih Semua"
@@ -342,6 +338,12 @@ function PaymentDialog({ open, closeDialogHandler }) {
                     }}
                   />
                 </Box>
+              </div>
+            ) : (
+              <div className="flex flex-1 items-center justify-center h-full text-center py-24 px-10">
+                <Typography color="text.secondary" variant="body1">
+                  Tidak ada daftar tagihan silakan melakukan pencarian data Anggota
+                </Typography>
               </div>
             )}
           </section>

@@ -10,18 +10,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import FuseLoading from '@fuse/core/FuseLoading';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import withRouter from '@fuse/core/withRouter';
-import { Button, Chip, IconButton, TableContainer, Tooltip } from '@mui/material';
+import { Button, IconButton, TableContainer, Tooltip } from '@mui/material';
 import {
   changeReportArisanReducer,
   deleteReportArisan,
   getReportArisan,
   getReportArisanById,
 } from 'app/store/redux/actions/report-actions/report-arisan-actions';
-import { useDispatch, useSelector } from 'react-redux';
 import ConfirmationDialog from 'app/theme-layouts/shared-components/ConfirmationDialog';
+import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormat } from 'src/utils/utils';
-import ListTableHead from './ListTableHead';
 import EditFormDialog from './EditFormDialog';
+import ListTableHead from './ListTableHead';
 
 function ListTable(props) {
   const isMounted = useRef(true);
@@ -72,18 +72,6 @@ function ListTable(props) {
     );
     await dispatch(getReportArisan());
   }
-
-  const convertStatus = (status = '') => {
-    const statusText = status.toLowerCase();
-    switch (statusText) {
-      case 'belum bayar':
-        return <Chip size="small" color="error" label={status} variant="filled" />;
-      case 'sudah bayar':
-        return <Chip size="small" color="success" label={status} variant="filled" />;
-      default:
-        return <Chip size="small" color="default" label="Tidak ada status" variant="filled" />;
-    }
-  };
 
   if (error) {
     return (

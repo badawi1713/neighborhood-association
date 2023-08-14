@@ -11,13 +11,13 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GroupListFilterDialog from './ListFilterDialog';
-import NewFormDialog from './NewFormDialog';
+import ManualPaymentDialog from './ManualPaymentDialog';
 import PaymentDialog from './PaymentDialog';
 
 function ListHeader() {
   const { transactionArisanNameSearch } = useSelector((state) => state.transactionArisanReducer);
   const [openFilterDialog, setOpenFilterDialog] = useState(false);
-  const [openFormDialog, setOpenFormDialog] = useState(false);
+  const [openManualPaymentDialog, setOpenManualPaymentDialog] = useState(false);
   const [openPaymentDialog, setOpenPaymentDialog] = useState(false);
 
   const dispatch = useDispatch();
@@ -100,22 +100,20 @@ function ListHeader() {
             onClick={() => setOpenPaymentDialog(true)}
             variant="contained"
             color="secondary"
-            startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+            startIcon={<FuseSvgIcon>heroicons-outline:cash</FuseSvgIcon>}
           >
             Bayar
           </Button>
-          {false && (
-            <Button
-              onClick={() => {
-                setOpenFormDialog(true);
-              }}
-              variant="contained"
-              color="success"
-              startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
-            >
-              Tambah
-            </Button>
-          )}
+          <Button
+            onClick={() => {
+              setOpenManualPaymentDialog(true);
+            }}
+            variant="contained"
+            color="success"
+            startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+          >
+            Tagihan Manual
+          </Button>
         </div>
       </div>
       {openFilterDialog && (
@@ -124,8 +122,11 @@ function ListHeader() {
           closeDialogHandler={() => setOpenFilterDialog(false)}
         />
       )}
-      {openFormDialog && (
-        <NewFormDialog open={openFormDialog} closeDialogHandler={() => setOpenFormDialog(false)} />
+      {openManualPaymentDialog && (
+        <ManualPaymentDialog
+          open={openManualPaymentDialog}
+          closeDialogHandler={() => setOpenManualPaymentDialog(false)}
+        />
       )}
       {openPaymentDialog && (
         <PaymentDialog
