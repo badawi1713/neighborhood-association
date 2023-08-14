@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/badawi1713/neighborhood-association/compare/v1.5.1...v1.6.0) (2023-08-14)
+
+
+### Features
+
+* add manual payment in arisan transaction ([1c5cbab](https://github.com/badawi1713/neighborhood-association/commit/1c5cbab602b4faddd885e1277d8b8ccd739933a7))
+* add reporting menu ([9132443](https://github.com/badawi1713/neighborhood-association/commit/91324438820e756b2fd132cf0cc15bcc71628eb7))
+* integrate with edit arisan member service ([faa3a04](https://github.com/badawi1713/neighborhood-association/commit/faa3a040b96390e3c9a52a6c3a862063a2333874))
+* integrate with get arisan report list services ([92d000a](https://github.com/badawi1713/neighborhood-association/commit/92d000a93d9ff9f1502e11f079782f8b800c7855))
+
 ### [1.5.1](https://github.com/badawi1713/neighborhood-association/compare/v1.5.0...v1.5.1) (2023-08-13)
 
 
