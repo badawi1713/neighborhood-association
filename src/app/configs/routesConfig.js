@@ -10,8 +10,10 @@ import homeConfigs from '../main/home/homeConfigs';
 import masterConfigs from '../main/master/masterConfigs';
 import arisanConfigs from '../main/arisan/arisanConfigs';
 import transactionConfigs from '../main/transaction/transactionConfigs';
+import reportConfigs from '../main/report/reportConfigs';
 
 const routeConfigs = [
+  ...reportConfigs,
   ...transactionConfigs,
   ...arisanConfigs,
   ...pagesConfigs,
