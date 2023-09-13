@@ -214,7 +214,7 @@ export const deleteTransactionArisan = (id) => {
       })
     );
     try {
-      await axios.delete(`/v1/api/Anggota/${id}`);
+      await axios.delete(`/v1/api/arisan-transaksi/${id}`);
 
       dispatch(
         showMessage({

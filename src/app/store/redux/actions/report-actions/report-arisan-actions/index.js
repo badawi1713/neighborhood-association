@@ -411,3 +411,49 @@ export const handleArisanPayment = (payload) => {
     }
   };
 };
+
+export const getReportArisanStatusById = (id, type = 'sudah') => {
+  return async (dispatch, getState) => {
+    dispatch(
+      changeReportArisanReducer({
+        loadingDialog: true,
+      })
+    );
+    const url =
+      type === 'sudah'
+        ? `/v1/api/arisan-report/sudah-bayar/${id}`
+        : `/v1/api/arisan-report/belum-bayar/${id}`;
+    try {
+      const response = await axios.get(url);
+
+      dispatch({
+        type: SET_REPORT_ARISAN_REDUCER,
+        payload: {
+          reportArisanStatusDetailData: response?.data || [],
+          reportArusanStatusTitle:
+            type !== 'sudah' ? 'Daftar Arisan Belum Bayar' : 'Daftar Arisan Sudah Bayar',
+        },
+      });
+      return true;
+    } catch (error) {
+      dispatch(
+        showMessage({
+          message: error.response?.data?.message || error.message,
+          variant: 'error',
+          anchorOrigin: {
+            vertical: 'top',
+            horizontal: 'right',
+          },
+        })
+      );
+      return false;
+    } finally {
+      dispatch({
+        type: SET_REPORT_ARISAN_REDUCER,
+        payload: {
+          loadingDialog: false,
+        },
+      });
+    }
+  };
+};

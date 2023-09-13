@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const rows = [
   {
-    id: 'id',
+    id: 'index',
     align: 'center',
     disablePadding: false,
     label: 'ID',
@@ -72,6 +72,13 @@ const rows = [
     align: 'left',
     disablePadding: false,
     label: 'Diubah Oleh',
+    sort: false,
+  },
+  {
+    id: 'id',
+    align: 'center',
+    disablePadding: false,
+    label: 'Aksi',
     sort: false,
   },
 ];

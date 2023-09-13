@@ -16,6 +16,8 @@ const initialState = {
   reportArisanLimit: 10,
   reportArisanTotal: 0,
   reportArisanId: 0,
+  reportArisanStatusDetailData: [],
+  reportArusanStatusTitle: 'Detail',
   loading: true,
   loadingList: false,
   loadingPost: false,

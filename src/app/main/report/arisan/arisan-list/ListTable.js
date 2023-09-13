@@ -16,12 +16,15 @@ import {
   deleteReportArisan,
   getReportArisan,
   getReportArisanById,
+  getReportArisanStatusById,
 } from 'app/store/redux/actions/report-actions/report-arisan-actions';
 import ConfirmationDialog from 'app/theme-layouts/shared-components/ConfirmationDialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { currencyFormat } from 'src/utils/utils';
+import { showMessage } from 'app/store/fuse/messageSlice';
 import EditFormDialog from './EditFormDialog';
 import ListTableHead from './ListTableHead';
+import StatusDialog from './StatusDialog';
 
 function ListTable(props) {
   const isMounted = useRef(true);
@@ -39,6 +42,7 @@ function ListTable(props) {
 
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openDeleteConfirmation, setOpenDeleteConfirmation] = useState(false);
+  const [openStatusDialog, setOpenStatusDialog] = useState(false);
   const [selectedId, setSelectedId] = useState('');
 
   const getGroupListData = useCallback(() => {
@@ -127,7 +131,7 @@ function ListTable(props) {
               return (
                 <TableRow className="h-72" hover tabIndex={-1} key={index}>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
-                    {index + 1}
+                    {item?.id}
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
                     {item?.tanggal || '-'}
@@ -147,7 +151,25 @@ function ListTable(props) {
                     scope="row"
                     align="center"
                   >
-                    {item?.jumlah_lunas || '-'}
+                    <button
+                      disabled={loadingDialog}
+                      onClick={async () => {
+                        if (+item?.jumlah_lunas < 1) {
+                          dispatch(showMessage({ message: 'Tidak ada daftar', variant: 'info' }));
+                        } else {
+                          const response = await dispatch(
+                            getReportArisanStatusById(item?.id, 'sudah')
+                          );
+                          if (response) {
+                            setOpenStatusDialog(true);
+                          }
+                        }
+                      }}
+                      type="button"
+                      className="font-bold disabled:text-grey-400"
+                    >
+                      {item?.jumlah_lunas ?? '-'}
+                    </button>
                   </TableCell>
                   <TableCell
                     className="p-4 md:p-16 text-red"
@@ -155,10 +177,28 @@ function ListTable(props) {
                     scope="row"
                     align="center"
                   >
-                    {item?.jumlah_belum_lunas || '-'}
+                    <button
+                      disabled={loadingDialog}
+                      onClick={async () => {
+                        if (+item?.jumlah_belum_lunas < 1) {
+                          dispatch(showMessage({ message: 'Tidak ada daftar', variant: 'info' }));
+                        } else {
+                          const response = await dispatch(
+                            getReportArisanStatusById(item?.id, 'belum')
+                          );
+                          if (response) {
+                            setOpenStatusDialog(true);
+                          }
+                        }
+                      }}
+                      type="button"
+                      className="font-bold disabled:text-grey-400"
+                    >
+                      {item?.jumlah_belum_lunas ?? '-'}
+                    </button>
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
-                    {item?.jumlah_anggota || '-'}
+                    {item?.jumlah_anggota ?? '-'}
                   </TableCell>
                   <TableCell
                     className="p-4 md:p-16 text-green"
@@ -176,7 +216,12 @@ function ListTable(props) {
                   >
                     Rp{currencyFormat(item?.nominal_belum_lunas || 0)}
                   </TableCell>
-                  <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
+                  <TableCell
+                    className="p-4 md:p-16 font-bold"
+                    component="th"
+                    scope="row"
+                    align="left"
+                  >
                     Rp{currencyFormat(item?.jumlah_nominal || 0)}
                   </TableCell>
                   {false && (
@@ -265,6 +310,7 @@ function ListTable(props) {
           }}
         />
       )}
+      <StatusDialog open={openStatusDialog} closeDialogHandler={() => setOpenStatusDialog(false)} />
     </div>
   );
 }

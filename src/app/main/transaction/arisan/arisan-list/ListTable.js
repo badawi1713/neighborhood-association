@@ -143,7 +143,7 @@ function ListTable(props) {
               return (
                 <TableRow className="h-72" hover tabIndex={-1} key={index}>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
-                    {index + 1}
+                    {item?.id}
                   </TableCell>
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
                     {item?.anggota_nama || '-'}
@@ -169,9 +169,9 @@ function ListTable(props) {
                   <TableCell className="p-4 md:p-16" component="th" scope="row" align="left">
                     {item?.updated_who || '-'}
                   </TableCell>
-                  {false && (
-                    <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
-                      <div className="flex justify-center gap-3 items-center">
+                  <TableCell className="p-4 md:p-16" component="th" scope="row" align="center">
+                    <div className="flex justify-center gap-3 items-center">
+                      {false && (
                         <Tooltip arrow title="Edit">
                           <span>
                             <IconButton
@@ -188,23 +188,23 @@ function ListTable(props) {
                             </IconButton>
                           </span>
                         </Tooltip>
-                        <Tooltip arrow title="Hapus">
-                          <span>
-                            <IconButton
-                              onClick={() => {
-                                setOpenDeleteConfirmation(true);
-                                setSelectedId(item?.id);
-                              }}
-                              disabled={loadingDelete || loadingDialog}
-                              color="error"
-                            >
-                              <FuseSvgIcon size={20}>heroicons-outline:trash</FuseSvgIcon>
-                            </IconButton>
-                          </span>
-                        </Tooltip>
-                      </div>
-                    </TableCell>
-                  )}
+                      )}
+                      <Tooltip arrow title="Hapus">
+                        <span>
+                          <IconButton
+                            onClick={() => {
+                              setOpenDeleteConfirmation(true);
+                              setSelectedId(item?.id);
+                            }}
+                            disabled={loadingDelete || loadingDialog}
+                            color="error"
+                          >
+                            <FuseSvgIcon size={20}>heroicons-outline:trash</FuseSvgIcon>
+                          </IconButton>
+                        </span>
+                      </Tooltip>
+                    </div>
+                  </TableCell>
                 </TableRow>
               );
             })}
@@ -239,9 +239,9 @@ function ListTable(props) {
       {openDeleteConfirmation && (
         <ConfirmationDialog
           open={openDeleteConfirmation}
-          title="Hapus data?"
+          title="Hapus transaksi?"
           type="error"
-          content={`Konfirmasi untuk melakukan hapus data dengan ID: ${selectedId}`}
+          content={`Konfirmasi untuk melakukan hapus transaksi dengan ID: ${selectedId}`}
           loading={loadingDelete}
           confirmActionText="Hapus"
           loadingText="Menunggu..."
