@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.6.1](https://github.com/badawi1713/neighborhood-association/compare/v1.6.0...v1.6.1) (2023-09-13)
+
+
+### Features
+
+* add delete transaction and add show detail arisan status list report ([56143c2](https://github.com/badawi1713/neighborhood-association/commit/56143c20e1e946a7f40b7440d38c971d94548ce2))
+
 ## [1.6.0](https://github.com/badawi1713/neighborhood-association/compare/v1.5.1...v1.6.0) (2023-08-14)
 
 
